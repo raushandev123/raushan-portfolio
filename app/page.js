@@ -1,4 +1,5 @@
 import Trace from "./Trace";
+import Header from "./Header";
 
 const EMAIL = "raushnk09052000@gmail.com";
 const LINKEDIN = "https://linkedin.com/in/raushan-kumara6121917a";
@@ -69,16 +70,7 @@ const skills = [
 export default function Home() {
   return (
     <>
-      <header className="nav">
-        <div className="wrap nav-in">
-          <a href="#top" className="logo"><span>RK</span>Raushan Kumar</a>
-          <nav>
-            <a href="#focus">What I do</a><a href="#projects">Projects</a><a href="#experience">Experience</a>
-            <a href="#skills">Skills</a><a href="#resume">Resume</a><a href="#contact">Contact</a>
-          </nav>
-          <a className="btn sm" href={RESUME} download>Download CV</a>
-        </div>
-      </header>
+      <Header resume={RESUME} email={EMAIL} />
 
       <main id="top">
         <section className="hero wrap">
@@ -176,13 +168,51 @@ export default function Home() {
         </section>
       </main>
 
-      <footer>
+      <footer className="site-footer">
         <div className="wrap foot">
-          <div><b>Raushan Kumar</b><p>Senior AI / LLM Engineer · Full Stack · AWS Serverless</p></div>
-          <nav><a href="#focus">What I do</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#resume">Resume</a></nav>
-          <nav><a href={`mailto:${EMAIL}`}>Email</a><a href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn</a><a href={RESUME} download>Resume PDF</a></nav>
+          <div className="foot-brand">
+            <a href="#top" className="logo"><span>RK</span>Raushan Kumar</a>
+            <p>Senior AI / LLM engineer building RAG systems, document intelligence and AWS serverless products.</p>
+            <p className="avail"><i /> Open to senior AI / LLM roles</p>
+            <div className="social">
+              <a href={`mailto:${EMAIL}`} aria-label="Email">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></svg>
+              </a>
+              <a href={`tel:${PHONE}`} aria-label="Phone">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" /></svg>
+              </a>
+              <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.82-1.95 3.75-1.95 4 0 4.74 2.5 4.74 5.8V21h-4v-5.1c0-1.2 0-2.8-1.75-2.8s-2 1.3-2 2.7V21h-4z" /></svg>
+              </a>
+            </div>
+          </div>
+
+          <nav aria-label="Explore">
+            <h4>Explore</h4>
+            <a href="#focus">What I do</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#resume">Resume</a>
+          </nav>
+
+          <nav aria-label="Projects">
+            <h4>Projects</h4>
+            <a href="https://app.inboxaccel.com/" target="_blank" rel="noreferrer">InboxAccel</a>
+            <a href="https://assessment.power-pairs.com/" target="_blank" rel="noreferrer">Power Pairs</a>
+            <a href="https://halluseer.online/" target="_blank" rel="noreferrer">Halluseer</a>
+            <a href="#projects">Wivy Coder</a>
+          </nav>
+
+          <nav aria-label="Contact">
+            <h4>Get in touch</h4>
+            <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+            <a href={`tel:${PHONE}`}>{PHONE_TEXT}</a>
+            <a href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href={RESUME} download>Download resume</a>
+          </nav>
         </div>
-        <p className="copy wrap">© {new Date().getFullYear()} Raushan Kumar. Built with Next.js.</p>
+
+        <div className="wrap foot-bar">
+          <p>© {new Date().getFullYear()} Raushan Kumar. All rights reserved.</p>
+          <a href="#top" className="totop">Back to top ↑</a>
+        </div>
       </footer>
     </>
   );

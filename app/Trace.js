@@ -1,31 +1,74 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const steps = [
-  ["upload", "Client PDF / scanned image lands in S3"],
-  ["stream", "DynamoDB Stream triggers Lambda ingestion"],
-  ["ocr", "OCR + layout-aware extraction to structured text"],
-  ["embed", "Chunks embedded and synced to the search index"],
-  ["retrieve", "Vector search + semantic reranking"],
-  ["answer", "Claude / Gemini returns a grounded answer with sources"],
+  { id: "upload", svc: "S3", text: "Client PDF or scanned image lands in S3" },
+  { id: "stream", svc: "Lambda", text: "DynamoDB Stream triggers the ingestion function" },
+  { id: "ocr", svc: "OCR", text: "Layout-aware extraction turns pages into structured text" },
+  { id: "embed", svc: "Embeddings", text: "Chunks are embedded and synced to the search index" },
+  { id: "retrieve", svc: "Vector search", text: "Top passages are retrieved and semantically reranked" },
+  { id: "answer", svc: "Claude / Gemini", text: "The model writes an answer grounded in those passages" },
 ];
 
+const STEP_MS = 800;
+
 export default function Trace() {
-  const [n, setN] = useState(0);
+  const [current, setCurrent] = useState(-1); // -1 idle, steps.length = done
+  const timers = useRef([]);
+
+  const clear = () => { timers.current.forEach(clearTimeout); timers.current = []; };
+
   const run = () => {
-    setN(0);
-    steps.forEach((_, i) => setTimeout(() => setN(i + 1), 500 * (i + 1)));
+    clear();
+    setCurrent(0);
+    steps.forEach((_, i) => {
+      timers.current.push(setTimeout(() => setCurrent(i + 1), STEP_MS * (i + 1)));
+    });
   };
+
+  useEffect(() => {
+    const start = setTimeout(run, 900);
+    return () => { clearTimeout(start); clear(); };
+  }, []);
+
+  const done = current === steps.length;
+  const running = current >= 0 && !done;
+  const pct = current < 0 ? 0 : (current / steps.length) * 100;
+
   return (
-    <div className="trace">
+    <div className="trace" aria-label="Example RAG pipeline run">
       <div className="trace-head">
-        <span><i /><i /><i /> rag-pipeline / run</span>
-        <button onClick={run}>{n === 0 ? "Run pipeline" : "Run again"}</button>
+        <span className="trace-title"><i /><i /><i /> rag-pipeline</span>
+        <span className={`status ${done ? "ok" : running ? "run" : ""}`}>
+          {done ? "Completed" : running ? "Running" : "Idle"}
+        </span>
+        <button onClick={run} disabled={running}>{done ? "Run again" : running ? "Running…" : "Run pipeline"}</button>
       </div>
-      <ol>
-        {steps.slice(0, n).map(([t, m]) => (<li key={t}><b>{t}</b>{m}</li>))}
-        {n === 0 && <li className="idle">Press “Run pipeline” to watch a document go from upload to grounded answer.</li>}
+
+      <div className="bar"><div style={{ width: `${pct}%` }} /></div>
+
+      <ol className="flow">
+        {steps.map((s, i) => {
+          const state = i < current ? "done" : i === current ? "active" : "wait";
+          return (
+            <li key={s.id} className={state}>
+              <span className="dot" aria-hidden="true">
+                {state === "done" ? "✓" : state === "active" ? <em /> : ""}
+              </span>
+              <div>
+                <p className="svc">{s.svc}</p>
+                <p className="txt">{s.text}</p>
+              </div>
+            </li>
+          );
+        })}
       </ol>
+
+      <div className={`answer${done ? " show" : ""}`}>
+        <p className="a-label">Sample answer</p>
+        <p className="a-text">The agreement requires 60 days’ written notice before termination.</p>
+        <p className="a-src"><span>contract.pdf · p.4</span><span>terms.pdf · p.2</span></p>
+      </div>
     </div>
   );
 }
