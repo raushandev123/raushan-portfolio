@@ -3,7 +3,6 @@ import Trace from "./Trace";
 const EMAIL = "raushnk09052000@gmail.com";
 const LINKEDIN = "https://linkedin.com/in/raushan-kumara6121917a";
 const RESUME = "/Raushan_Kumar_Resume.pdf";
-// 4+ years in software, 5+ engineers led, 80%+ test coverage in CI, US · UK · HK client regions
 const stats = [["4+", "years in software"], ["5+", "engineers led"], ["80%+", "test coverage in CI"], ["US · UK · HK", "client regions"]];
 
 const focus = [
