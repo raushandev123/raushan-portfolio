@@ -30,7 +30,7 @@ const projects = [
     stack: ["Claude API", "Code generation", "Auto deploy"] },
 ];
 
-const live = ["growth99.com", "remotehunter.com", "dfxonepro.com", "tejyug.com", "app.inboxaccel.com", "nextias.com", "app.pharmaforceiq.com"];
+const live = ["apnashaher.com","app.growth99.com", "remotehunter.com", "dfxonepro.com", "izharsonperfumers.com", "app.inboxaccel.com", "app.pharmaforceiq.com"];
 
 const trending = [
   ["Multi-agent workflows", "Planner, researcher and reviewer agents that split a task, call tools and check each other’s output."],
