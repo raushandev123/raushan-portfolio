@@ -77,3 +77,18 @@ footer{margin-top:80px;border-top:1px solid var(--line);background:var(--paper)}
   .contact{padding:40px 24px}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.trace li{animation:none}}
+
+.projgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.proj{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:10px}
+.proj h3{font-size:1.3rem}
+.proj p{margin:0;color:var(--muted)}
+.proj .tag{color:var(--teal);font-weight:600;font-size:14px}
+.visit{margin-top:auto;padding-top:8px;color:var(--teal);font-weight:600;text-decoration:none;font-family:var(--fm);font-size:14px}
+.visit:hover{text-decoration:underline}
+.chips{list-style:none;padding:0;margin:4px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.chips li{font-size:13px;padding:4px 12px;border-radius:999px;background:var(--tealbg);color:var(--teal)}
+.chips.live li{background:var(--paper);border:1px solid var(--line);padding:0}
+.chips.live a{display:block;padding:6px 14px;text-decoration:none;font-family:var(--fm);color:var(--ink)}
+.chips.live li:hover{border-color:var(--teal)}
+.sub{margin:48px 0 16px}
+@media(max-width:860px){.projgrid{grid-template-columns:1fr}}

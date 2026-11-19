@@ -2,7 +2,9 @@ import Trace from "./Trace";
 
 const EMAIL = "raushnk09052000@gmail.com";
 const LINKEDIN = "https://linkedin.com/in/raushan-kumara6121917a";
-const RESUME = "/Raushan_Kumar_Resume.pdf";
+const RESUME = "/Raushan_Kumar_Senior_Full_Stack_AI_Engineer.pdf";
+const PHONE = "+919354776703";
+const PHONE_TEXT = "+91 93547 76703";
 const stats = [["4+", "years in software"], ["5+", "engineers led"], ["80%+", "test coverage in CI"], ["US · UK · HK", "client regions"]];
 
 const focus = [
@@ -10,6 +12,30 @@ const focus = [
   ["Document AI", "OCR and layout-aware extraction for PDFs and scans that replaces manual data entry with structured output."],
   ["LLM evaluation", "Benchmarking models, prompts and retrieval against labeled datasets to cut hallucinations and token cost."],
   ["AWS serverless", "AppSync, Lambda, DynamoDB, Cognito, S3 and CloudFront, with event-driven ingestion and single-table design."],
+];
+
+const projects = [
+  { name: "InboxAccel", tag: "Email agent", url: "https://app.inboxaccel.com/",
+    text: "RAG-based email agent that reads context from your mail, drafts replies and tracks whether each email was seen and whether a draft was prepared.",
+    stack: ["RAG", "LLM", "Email tracking", "Draft generation"] },
+  { name: "Power Pairs Assessment", tag: "Assessment + reports", url: "https://assessment.power-pairs.com/",
+    text: "Takes a person’s assessment answers, generates their power pairs and produces a written report from the results.",
+    stack: ["Assessment engine", "Report generation", "LLM"] },
+  { name: "Halluseer", tag: "Voice agent", url: "https://halluseer.online/",
+    text: "Voice agent that transcribes call audio, finds the sensitive parts of the conversation and turns them into a transcript report.",
+    stack: ["Voice AI", "Speech-to-text", "Sensitive-content detection", "Reports"] },
+  { name: "Wivy Coder", tag: "Prompt-to-app builder", url: null,
+    text: "A Lovable-style app builder. Describe an app in a prompt, Anthropic’s Claude generates the code, and the app is deployed for you.",
+    stack: ["Claude API", "Code generation", "Auto deploy"] },
+];
+
+const live = ["growth99.com", "remotehunter.com", "dfxonepro.com", "tejyug.com", "app.inboxaccel.com", "nextias.com", "app.pharmaforceiq.com"];
+
+const trending = [
+  ["Multi-agent workflows", "Planner, researcher and reviewer agents that split a task, call tools and check each other’s output."],
+  ["MCP tool servers", "Model Context Protocol servers that give Claude and other assistants safe access to company data and APIs."],
+  ["AI customer-support copilot", "Retrieval over help docs plus live order or account lookups, with human approval for sensitive actions."],
+  ["LLM evaluation dashboard", "Track answer quality, hallucination rate and token cost across prompts and models."],
 ];
 
 const jobs = [
@@ -47,7 +73,7 @@ export default function Home() {
         <div className="wrap nav-in">
           <a href="#top" className="logo"><span>RK</span>Raushan Kumar</a>
           <nav>
-            <a href="#focus">What I do</a><a href="#experience">Experience</a>
+            <a href="#focus">What I do</a><a href="#projects">Projects</a><a href="#experience">Experience</a>
             <a href="#skills">Skills</a><a href="#resume">Resume</a><a href="#contact">Contact</a>
           </nav>
           <a className="btn sm" href={RESUME} download>Download CV</a>
@@ -78,6 +104,31 @@ export default function Home() {
           <h2>What I build</h2>
           <div className="grid4">
             {focus.map(([a, b]) => (<article key={a}><h3>{a}</h3><p>{b}</p></article>))}
+          </div>
+        </section>
+
+        <section id="projects" className="wrap">
+          <h2>Projects I’ve built</h2>
+          <div className="projgrid">
+            {projects.map((p) => (
+              <article key={p.name} className="proj">
+                <p className="tag">{p.tag}</p>
+                <h3>{p.name}</h3>
+                <p>{p.text}</p>
+                <ul className="chips">{p.stack.map((x) => <li key={x}>{x}</li>)}</ul>
+                {p.url && <a className="visit" href={p.url} target="_blank" rel="noreferrer">Visit {p.url.replace("https://", "").replace(/\/$/, "")}</a>}
+              </article>
+            ))}
+          </div>
+
+          <h3 className="sub">Live products I’ve worked on</h3>
+          <ul className="chips live">
+            {live.map((d) => (<li key={d}><a href={`https://${d}`} target="_blank" rel="noreferrer">{d}</a></li>))}
+          </ul>
+
+          <h3 className="sub">In-demand AI builds I’m exploring</h3>
+          <div className="grid4">
+            {trending.map(([a, b]) => (<article key={a}><h3>{a}</h3><p>{b}</p></article>))}
           </div>
         </section>
 
@@ -118,6 +169,7 @@ export default function Home() {
             <p>I’m happy to talk about LLM features, RAG systems or AWS serverless builds.</p>
             <div className="cta">
               <a className="btn light" href={`mailto:${EMAIL}`}>{EMAIL}</a>
+              <a className="btn ghost light" href={`tel:${PHONE}`}>{PHONE_TEXT}</a>
               <a className="btn ghost light" href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn</a>
             </div>
           </div>
@@ -127,7 +179,7 @@ export default function Home() {
       <footer>
         <div className="wrap foot">
           <div><b>Raushan Kumar</b><p>Senior AI / LLM Engineer · Full Stack · AWS Serverless</p></div>
-          <nav><a href="#focus">What I do</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#resume">Resume</a></nav>
+          <nav><a href="#focus">What I do</a><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#resume">Resume</a></nav>
           <nav><a href={`mailto:${EMAIL}`}>Email</a><a href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn</a><a href={RESUME} download>Resume PDF</a></nav>
         </div>
         <p className="copy wrap">© {new Date().getFullYear()} Raushan Kumar. Built with Next.js.</p>
